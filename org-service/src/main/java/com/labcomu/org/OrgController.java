@@ -1,13 +1,18 @@
 package com.labcomu.org;
 
+import com.labcomu.org.domain.Organization;
 import com.labcomu.org.resource.ResourceOrganization;
 import com.labcomu.org.resource.ResourceResearcher;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/org")
@@ -19,6 +24,7 @@ public class OrgController {
 
   @GetMapping("organization/{url}")
   public ResponseEntity<ResourceOrganization> getOrganization(@NotNull @PathVariable String url) {
+    System.out.println("TO NO ORG CONTROLLER: " + ResponseEntity.of(service.getOrganization(url)));
     return ResponseEntity.of(service.getOrganization(url));
   }
 

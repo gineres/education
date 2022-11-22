@@ -30,7 +30,8 @@ public class OrgService {
 
         // load researchers (lazy)
         organization.ifPresent(Organization::getResearchers);
-
+        System.out.println("TO NO ORG SERRVICE" + organization);
+        System.out.println("TO NO ORG SERRVICE 222" + organization.map(resourceOrganizationMapper::map));
         return organization.map(resourceOrganizationMapper::map);
     }
 

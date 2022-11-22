@@ -25,3 +25,10 @@ app:
   url:
     check-server-status: ${app.gateways.orcid.url}/status
     fetch-record-details: ${app.gateways.orcid.url}/{orcid}
+
+  resilience4j:
+    retry:
+      instances:
+        orcidService:
+          maxRetryAttempts: 2
+          waitDuration: 5s

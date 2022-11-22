@@ -3,6 +3,7 @@ package com.labcomu.edu;
 import com.labcomu.edu.resource.Organization;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +27,10 @@ public class EduController {
   }
 
   public Organization getLog (Exception e){
-    System.out.println("Entrou no cirtuit");
     Organization org = new Organization();
-    org.setName("mika");
-    org.setUrl("mmooo.ufrn.br");
-    System.out.println("ORG:::::::: " + org);
+    org.setName(null);
+    org.setUrl(null);
+    System.out.println(HttpStatus.UNPROCESSABLE_ENTITY + ": o org service não respondeu de forma esperada.");
     return org;
   }
 }

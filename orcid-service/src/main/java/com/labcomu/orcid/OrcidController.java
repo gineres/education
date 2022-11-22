@@ -1,6 +1,8 @@
 package com.labcomu.orcid;
 
+import com.labcomu.faultinjection.annotation.Throw;
 import com.labcomu.orcid.resource.Researcher;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +24,11 @@ public class OrcidController {
         return service.isActive();
     }
 
+    @Throw(exception=RuntimeException.class, threshold=0.5)
     @GetMapping("researcher/{orcid}")
-    public Researcher getResearcher(@NotNull @PathVariable String orcid) {
+    @Retry(name = "orcidService")
+    public Researcher getResearcher(@NotNull @PathVariable String orcid) throws RuntimeException {
+        System.out.println("Contatando o Orcid...");
         return service.getResearcher(orcid);
     }
 }

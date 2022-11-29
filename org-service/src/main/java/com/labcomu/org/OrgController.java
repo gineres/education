@@ -21,20 +21,10 @@ public class OrgController {
   private static final int CONFLICT = 409;
   private final OrgService service;
 
-  //@Delay(value=5, threshold=0.9)
   @GetMapping("organization/{url}")
-  //@RateLimiter(name = "org-service", fallbackMethod = "getLog")
+  @Delay(value=5, threshold=0.9)
   public ResponseEntity<ResourceOrganization> getOrganization(@NotNull @PathVariable String url) {
     return ResponseEntity.of(service.getOrganization(url));
-  }
-
-  public ResponseEntity<ResourceOrganization> getLog (){
-    ResourceOrganization org = new ResourceOrganization();
-    org.setId(null);
-    org.setName(null);
-    org.setUrl(null);
-    System.out.println(HttpStatus.REQUEST_TIMEOUT + ": o serviço demorou para responder.");
-    return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(org);
   }
 
   @PostMapping("organization/researcher/{url}")

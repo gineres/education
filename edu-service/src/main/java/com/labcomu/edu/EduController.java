@@ -2,6 +2,8 @@ package com.labcomu.edu;
 
 import com.labcomu.edu.resource.Organization;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.RequestNotPermitted;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +23,19 @@ public class EduController {
   private final EduService service;
 
   @GetMapping("organization/{url}")
+  @RateLimiter(name = "orgService", fallbackMethod = "getRateLog")
   @CircuitBreaker(name = "eduService", fallbackMethod = "getLog")
   public Organization getOrganization(@NotNull @PathVariable String url) {
     return service.getOrganization(url);
   }
 
+  public Organization getRateLog (Exception e){
+    Organization org = new Organization();
+    org.setName(null);
+    org.setUrl(null);
+    System.out.println(HttpStatus.REQUEST_TIMEOUT + ": o serviço demorou para responder.");
+    return org;
+  }
   public Organization getLog (Exception e){
     Organization org = new Organization();
     org.setName(null);

@@ -39,3 +39,11 @@ resilience4j.circuitbreaker:
       slidingWindowSize: 10
       waitDurationInOpenState: 50s
       permittedNumberOfCallsInHalfOpenState: 2
+
+resilience4j:
+  ratelimiter:
+    instances:
+      orgService:
+        limitForPeriod: 4
+        limitRefreshPeriod: 2s
+        timeoutDuration: 3s

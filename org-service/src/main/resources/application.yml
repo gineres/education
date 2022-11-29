@@ -33,11 +33,3 @@ spring:
     url: jdbc:h2:mem:education
     username: sa
     password: password
-
-resilience4j:
-  ratelimiter:
-    instances:
-      org-service:
-      limitForPeriod: 1
-      limitRefreshPeriod: 1s
-      timeoutDuration: 5s

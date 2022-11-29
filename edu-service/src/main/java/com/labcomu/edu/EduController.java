@@ -24,23 +24,15 @@ public class EduController {
 
   @GetMapping("organization/{url}")
   @RateLimiter(name = "orgService", fallbackMethod = "getRateLog")
-  @CircuitBreaker(name = "eduService", fallbackMethod = "getLog")
   public Organization getOrganization(@NotNull @PathVariable String url) {
     return service.getOrganization(url);
   }
 
-  public Organization getRateLog (Exception e){
+  public Organization getRateLog (){
     Organization org = new Organization();
     org.setName(null);
     org.setUrl(null);
     System.out.println(HttpStatus.REQUEST_TIMEOUT + ": o serviço demorou para responder.");
-    return org;
-  }
-  public Organization getLog (Exception e){
-    Organization org = new Organization();
-    org.setName(null);
-    org.setUrl(null);
-    System.out.println(HttpStatus.UNPROCESSABLE_ENTITY + ": o org service não respondeu de forma esperada.");
     return org;
   }
 }

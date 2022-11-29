@@ -10,7 +10,8 @@ do_local() {
 }
 
 do_docker() {
-  docker compose --file docker-compose.yml up --detach
+  #docker compose --file docker-compose.yml up --detach
+  docker compose up --scale orcid-service=2
 }
 
 . ./do.sh Start $@

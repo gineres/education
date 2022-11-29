@@ -28,7 +28,7 @@ public class EduController {
     return service.getOrganization(url);
   }
 
-  public Organization getRateLog (){
+  public Organization getRateLog (Exception e){
     Organization org = new Organization();
     org.setName(null);
     org.setUrl(null);
